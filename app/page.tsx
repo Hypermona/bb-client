@@ -1,8 +1,8 @@
 import PostCard from "@/components/PostCard";
-import { getData } from "@/lib/dataservices";
+import { getAllPosts, getData } from "@/lib/dataservices";
 
 export default async function Home() {
-  const posts = await getData("/api/posts");
+  const posts = await getAllPosts();
   return (
     <main className="p-1 sm:p-5">
       <div className="flex flex-wrap gap-4 justify-center sm:gap-y-20 mt-5">
