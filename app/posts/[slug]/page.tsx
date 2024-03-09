@@ -5,12 +5,33 @@ import Image from "next/image";
 import Link from "next/link";
 import NoImage from "@/components/NoImage";
 import { Badge } from "@/components/ui/badge";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
   return posts.map((post: any) => ({
     slug: post?.filename?.split(".")[0],
   }));
+}
+
+type Props = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+  const post: ProductFields = await getData(
+    `https://res.cloudinary.com/hypermona/raw/upload/bb-admin/blogs/${params.slug}.json`,
+    true
+  );
+  return {
+    title: post.title,
+    description: post.shortDescription,
+    openGraph: {
+      images: [post.image],
+    },
+  };
 }
 
 // Multiple versions of this page will be statically generated
@@ -21,6 +42,9 @@ export default async function Page({ params }: Readonly<{ params: { slug: string
     `https://res.cloudinary.com/hypermona/raw/upload/bb-admin/blogs/${slug}.json`,
     true
   );
+  if (post.failed) {
+    return notFound();
+  }
   const related = await getRelatedPosts(slug, post?.type, post?.priceCategory, post?.tags);
 
   return (

@@ -15,7 +15,9 @@ export async function getData(url: string, isFullUrl = false) {
   let res = await fetch(URL);
   console.log("reskkkkkkkkkkkkkkkkkkkkkkkkkkkkk", URL);
   if (!res.ok) {
-    throw new Error("Failed to fetch data");
+    return {
+      failed: true,
+    };
   }
   return res.json();
 }
