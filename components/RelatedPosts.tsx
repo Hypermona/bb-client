@@ -6,17 +6,14 @@ import NoImage from "./NoImage";
 import Link from "next/link";
 
 type Props = {
-  slug: string;
-  post: any;
+  related: any;
 };
 
-async function RelatedPosts({ slug, post }: Props) {
-  const related = await getRelatedPosts(slug, post?.type, post?.priceCategory, post?.tags);
-
+async function RelatedPosts({ related }: Props) {
   return (
     <div>
-      {related?.length > 1 && (
-        <div className="sm:m-20 p-5 bg-slate-200 dark:bg-slate-900 rounded-md w-[90vw] sm:w-[40vw]">
+      {related?.length > 0 && (
+        <div className="sm:m-20 p-5 bg-slate-200 dark:bg-slate-900 rounded-md w-[100vw] sm:w-[31vw]">
           <h2 className="text-2xl font-semibold m-2 mb-4">
             Related Posts <Badge className="bg-[#d4ff32]">New</Badge>
           </h2>

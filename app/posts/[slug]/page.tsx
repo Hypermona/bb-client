@@ -46,7 +46,8 @@ export default async function Page({ params }: Readonly<{ params: { slug: string
   if (post.failed) {
     return notFound();
   }
-
+  const related = await getRelatedPosts(slug, post?.type, post?.priceCategory, post?.tags);
+  console.log("SEARCH reasult for", related);
   return (
     <div className="sm:flex">
       <div>
@@ -67,7 +68,7 @@ export default async function Page({ params }: Readonly<{ params: { slug: string
           </div>
         )}
       </div>
-      <RelatedPosts post={post} slug={slug} />
+      <RelatedPosts related={related} />
     </div>
   );
 }
