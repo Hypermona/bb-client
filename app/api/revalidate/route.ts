@@ -18,6 +18,6 @@ export async function GET(request: NextRequest) {
       message: "Invalid token!",
     });
   }
-  revalidatePath(path);
+  revalidatePath(path, "layout");
   return Response.json({ revalidated: true, now: new Date().toLocaleString() });
 }
