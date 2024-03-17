@@ -1,10 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import { currencyFormatter } from "@/lib/helpers";
-import AmazonLogo from "../public/logos/amazon.png";
-import FlipkartLogo from "../public/logos/flipkart.png";
-import SignalSVG from "../public/signal.svg";
+import { brands, currencyFormatter } from "@/lib/helpers";
 import {
   CameraIcon,
   CaretSortIcon,
@@ -12,6 +9,7 @@ import {
   ComponentNoneIcon,
   DoubleArrowDownIcon,
   DoubleArrowUpIcon,
+  LapTimerIcon,
   LightningBoltIcon,
   MarginIcon,
   MobileIcon,
@@ -25,6 +23,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Badge } from "./ui/badge";
 import NoImage from "./NoImage";
+import NetworkIcon from "./icons/NetworkIcon";
+import Link from "next/link";
 
 type Props = { product: ProductFields; index: number };
 
@@ -40,14 +40,15 @@ const topFeatrues = ["100X Optical Zoom", "Worlds Number 1 Chip"];
 
 const logos: any = {
   display: <MobileIcon />,
-  battery: <ClipboardIcon />,
+  battery: <ClipboardIcon className="rotate-90" />,
   connectivity: <Share1Icon />,
   charger: <ComponentNoneIcon />,
-  network: <Image src={SignalSVG} width={24} height={24} alt={"signal"} />,
+  network: <NetworkIcon />,
   chip: <MarginIcon />,
   os: <StackIcon />,
   camera: <CameraIcon />,
   FEAT: <LightningBoltIcon color="#FFD700" />,
+  standBy: <LapTimerIcon />,
 };
 
 const cons = ["No Audio Jack", "No charger at the Box", "No Fast Charging", "No call recording"];
@@ -58,7 +59,7 @@ const getRatings = (ratings: { rating: number; brand: string; reviewCount: numbe
     <Popover>
       <PopoverTrigger>
         <Badge className="flex items-center text-sm underline">
-          {(avgRating / 2).toFixed(1)} <StarFilledIcon color="#CD853F" />
+          {(avgRating / ratings.length).toFixed(1)} <StarFilledIcon color="#CD853F" />
         </Badge>
       </PopoverTrigger>
       <PopoverContent>
@@ -127,7 +128,7 @@ const ProductCard = ({ product, index }: Props) => {
             style={{ minHeight: expand ? 300 : 200, transition: "all .5s ease" }}
           >
             {product.standouts?.slice(0, expand ? undefined : 4)?.map((f, i: any) => (
-              <div key={f[0]} className="flex items-center sm:my-1 w-[200px] sm:w-[50%]">
+              <div key={f[0]} className="flex items-center jus sm:my-1 w-[200px] sm:w-[75%]">
                 <span className="mr-2">{logos["FEAT"]}</span>
                 <p
                   className={
@@ -139,9 +140,10 @@ const ProductCard = ({ product, index }: Props) => {
               </div>
             ))}
             {Object.entries(product.features)
+              ?.filter((f) => f[1])
               ?.slice(0)
               ?.map((f, i: any) => (
-                <p key={f[0]} className="flex items-center sm:my-1 text-sm w-[200px] sm:w-[50%] ">
+                <p key={f[0]} className="flex items-start sm:my-1 text-sm w-[200px] sm:w-[75%] ">
                   <span className="mr-2 text-white">{logos[f[0]]}</span>
                   <span className={expand ? "" : "overflow-hidden whitespace-nowrap text-ellipsis"}>
                     {typeof f[1] === "object" ? f[1]?.label : f[1]}
@@ -149,7 +151,7 @@ const ProductCard = ({ product, index }: Props) => {
                 </p>
               ))}
             {product?.cons?.slice(0, expand ? undefined : 3)?.map((c, i) => (
-              <div key={c} className="flex items-center w-[200px] sm:w-[50%] ">
+              <div key={c} className="flex items-start w-[200px] sm:w-[75%] ">
                 <ValueNoneIcon color="red" />
                 <span
                   className={
@@ -169,20 +171,17 @@ const ProductCard = ({ product, index }: Props) => {
           <p className="ml-2">{expand ? "View Less..." : "View more..."}</p>
         </Button>
         <div className="flex justify-around gap-1">
-          <Button className="w-full">
-            <Avatar>
-              <AvatarImage src={AmazonLogo.src} />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>{" "}
-            Amazon
-          </Button>
-          <Button className="w-full">
-            <Avatar>
-              <AvatarImage src={FlipkartLogo.src} />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            Flipkart
-          </Button>
+          {product?.Links?.map((link) => (
+            <Button className="w-full" key={link.brand}>
+              <Avatar>
+                <AvatarImage src={brands[link.brand].icon} />
+                <AvatarFallback>{link.brand}</AvatarFallback>
+              </Avatar>{" "}
+              <Link href={link.link} target="_blank" className="underline">
+                {brands[link.brand].label}
+              </Link>
+            </Button>
+          ))}
         </div>
       </div>
     </div>

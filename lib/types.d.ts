@@ -9,6 +9,6 @@ interface ProductFields {
   standouts: string[];
   features: Object;
   cons: string[];
-  links: { link: string; brand: string }[];
+  Links: { link: string; brand: "AMAZON" | "FLIPKART" }[];
   shortDescription: string;
 }
