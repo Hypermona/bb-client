@@ -7,9 +7,11 @@ import Link from "next/link";
 
 type Props = {
   related: any;
+  to?: string;
 };
 
-async function RelatedPosts({ related }: Props) {
+async function RelatedPosts({ related, to = "posts" }: Readonly<Props>) {
+  console.log("related", related);
   return (
     <div>
       {related?.length > 0 && (
@@ -32,12 +34,14 @@ async function RelatedPosts({ related }: Props) {
                 <NoImage width={170} height={100} />
               )}
               <div className="ml-3">
-                <Link href={`/posts/${r?.filename.split(".")[0]}`}>
+                <Link href={`/${to}/${r?.filename?.split(".")[0]}`}>
                   <p className="underline underline-offset-4 mb-2">{r?.context?.title}</p>
                 </Link>
-                <p className="text-sm text-muted-foreground">
-                  {new Date(r?.uploaded_at).toDateString()}
-                </p>
+                {r?.uploaded_at && (
+                  <p className="text-sm text-muted-foreground">
+                    {new Date(r?.uploaded_at).toDateString()}
+                  </p>
+                )}
               </div>
             </div>
           ))}

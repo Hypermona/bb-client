@@ -146,7 +146,18 @@ const ProductCard = ({ product, index }: Props) => {
                 <p key={f[0]} className="flex items-start sm:my-1 text-sm w-[200px] sm:w-[75%] ">
                   <span className="mr-2 text-white">{logos[f[0]]}</span>
                   <span className={expand ? "" : "overflow-hidden whitespace-nowrap text-ellipsis"}>
-                    {typeof f[1] === "object" ? f[1]?.label : f[1]}
+                    {f[0] === "chip" ? (
+                      <Link
+                        href={`../processor/${f[1].value}`}
+                        className="underline underline-offset-1"
+                      >
+                        {typeof f[1] === "object" ? f[1]?.label : f[1]}
+                      </Link>
+                    ) : typeof f[1] === "object" ? (
+                      f[1]?.label
+                    ) : (
+                      f[1]
+                    )}
                   </span>
                 </p>
               ))}

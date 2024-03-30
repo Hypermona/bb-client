@@ -12,3 +12,6 @@ interface ProductFields {
   Links: { link: string; brand: "AMAZON" | "FLIPKART" }[];
   shortDescription: string;
 }
+interface resProductFields extends ProductFields {
+  id: string;
+}

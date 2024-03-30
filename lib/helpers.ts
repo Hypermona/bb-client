@@ -1,6 +1,9 @@
 import AmazonLogo from "../public/logos/amazon.png";
 import FlipkartLogo from "../public/logos/flipkart.png";
 
+export const PROCESSOR_LINK =
+  "https://res.cloudinary.com/hypermona/raw/upload/v1710527909/bb-admin/features/feature__processors.json";
+
 export const currencyFormatter = (value: string) => {
   let price: number = Number.isInteger(value) ? Number.parseInt(value) : Number.parseFloat(value);
   return price.toLocaleString("en-IN", {
@@ -20,3 +23,10 @@ export const brands = {
     label: "Flipkart",
   },
 };
+const capitalized = (word: string) => (word ? word.charAt(0).toUpperCase() + word.slice(1) : "");
+
+export const unslugify = (slug: string) =>
+  slug
+    ?.split("-")
+    .map((s) => capitalized(s))
+    .join(" ");

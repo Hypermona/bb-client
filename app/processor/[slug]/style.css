@@ -1,0 +1,8 @@
+.PlaygroundEditorTheme__h1 {
+    font-size: 40px;
+    color: var(--text-h1);
+    font-weight: 750;
+    line-height: 52px;
+    letter-spacing: -0.025em;
+    margin: 0;
+}
