@@ -1,10 +1,6 @@
 import { getAllPosts, getData, getRelatedPosts } from "@/lib/dataservices";
 import "./style.css";
 import ProductCard from "@/components/ProductCard";
-import Image from "next/image";
-import Link from "next/link";
-import NoImage from "@/components/NoImage";
-import { Badge } from "@/components/ui/badge";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import RelatedPosts from "@/components/RelatedPosts";
@@ -23,7 +19,7 @@ type Props = {
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const post: ProductFields = await getData(
-    `https://res.cloudinary.com/hypermona/raw/upload/bb-admin/blogs/${params.slug}.json`,
+    `https://res.cloudinary.com/hypermona/raw/upload/${process.env.MAIN_FOLDER}/blogs/${params.slug}.json`,
     true
   );
   return {
@@ -40,14 +36,13 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 export default async function Page({ params }: Readonly<{ params: { slug: string } }>) {
   const { slug } = params;
   const post = await getData(
-    `https://res.cloudinary.com/hypermona/raw/upload/bb-admin/blogs/${slug}.json`,
+    `https://res.cloudinary.com/hypermona/raw/upload/${process.env.MAIN_FOLDER}/blogs/${slug}.json`,
     true
   );
   if (post.failed) {
     return notFound();
   }
   const related = await getRelatedPosts(slug, post?.type, post?.priceCategory, post?.tags);
-  console.log("SEARCH reasult for", related);
   return (
     <div className="sm:flex">
       <div>

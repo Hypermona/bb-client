@@ -26,7 +26,7 @@ export async function getData(url: string, isFullUrl = false) {
 export async function getAllPosts() {
   return cloudinary.search
     .expression(
-      "folder:bb-admin/blogs/*" // add your folder
+      "folder:" + process.env.MAIN_FOLDER + "/blogs/*" // add your folder
     )
     .sort_by("public_id", "desc")
     .with_field("context")
@@ -42,10 +42,10 @@ let prev: string | null = null;
 export async function getPostsByPage(page: string) {
   return cloudinary.search
     .expression(
-      "folder:bb-admin/blogs/*" // add your folder
+      "folder:" + process.env.MAIN_FOLDER + "/blogs/*" // add your folder
     )
     .sort_by("public_id", "desc")
-    .max_results(2)
+    .max_results(12)
     .with_field("context")
     .next_cursor(page)
     .execute()
@@ -77,14 +77,12 @@ function getTagsExp(tags: string[]) {
       }
     }
   }
-  console.log("########################################", exp);
   return exp;
 }
 export async function getRelatedPosts(filename: string, type: any, price?: any, tags?: any) {
-  console.log("filename???????????????????", filename);
   return cloudinary.search
     .expression(
-      `folder:bb-admin/blogs/* AND ((${
+      `folder:${process.env.MAIN_FOLDER}/blogs/* AND ((${
         type === "PRODUCT" ? `context.price<=${(Number(price) || 0) + 5000} OR` : ""
       } ${getTagsExp(tags)} )  AND -filename=${filename}.json )`
     )
@@ -95,9 +93,7 @@ export async function getRelatedPosts(filename: string, type: any, price?: any, 
     .then((result) => {
       return result?.resources;
     })
-    .catch((err) => {
-      // console.log(err);
-    });
+    .catch(() => {});
 }
 
 export async function getURLData(url: string) {
@@ -118,7 +114,7 @@ export async function getProcessorPost(slug: string) {
     res.push({ ...data, id: doc.id });
   });
   let postRes: any = { productCards: res };
-  postRes["title"] = `Mobile Phones That Having Processor ${unslugify(slug)}`;
+  postRes["title"] = `The Mobile Phones With ${unslugify(slug)} Processor`;
   return postRes;
 }
 

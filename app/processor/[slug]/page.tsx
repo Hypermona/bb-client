@@ -1,14 +1,7 @@
-import {
-  getAllPosts,
-  getData,
-  getProcessorPost,
-  getRelatedPost,
-  getRelatedPosts,
-} from "@/lib/dataservices";
+import { getData, getProcessorPost, getRelatedPost } from "@/lib/dataservices";
 import "./style.css";
 import ProductCard from "@/components/ProductCard";
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
 import RelatedPosts from "@/components/RelatedPosts";
 import { PROCESSOR_LINK } from "@/lib/helpers";
 

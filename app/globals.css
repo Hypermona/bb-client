@@ -115,9 +115,7 @@ pre {
   overflow-x: auto;
   background: #000d28;
   font-size: 13px;
-
 }
-
 
 /* width */
 ::-webkit-scrollbar {
@@ -139,4 +137,3 @@ pre {
 ::-webkit-scrollbar-thumb:hover {
   background: #39486d;
 }
-

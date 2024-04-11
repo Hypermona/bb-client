@@ -11,7 +11,6 @@ type Props = {
 };
 
 async function RelatedPosts({ related, to = "posts" }: Readonly<Props>) {
-  console.log("related", related);
   return (
     <div>
       {related?.length > 0 && (

@@ -1,8 +1,7 @@
 import AmazonLogo from "../public/logos/amazon.png";
 import FlipkartLogo from "../public/logos/flipkart.png";
 
-export const PROCESSOR_LINK =
-  "https://res.cloudinary.com/hypermona/raw/upload/v1710527909/bb-admin/features/feature__processors.json";
+export const PROCESSOR_LINK = `https://res.cloudinary.com/hypermona/raw/upload/v1710527909/${process.env.MAIN_FOLDER}/features/feature__processors.json`;
 
 export const currencyFormatter = (value: string) => {
   let price: number = Number.isInteger(value) ? Number.parseInt(value) : Number.parseFloat(value);

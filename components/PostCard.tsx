@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import { getURLData } from "@/lib/dataservices";
 import { Card } from "./ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 import Link from "next/link";
@@ -13,7 +12,6 @@ interface Data {
 }
 
 async function PostCard({ metaData }: { metaData: any }) {
-  // const data = await getURLData(metaData?.secure_url);
   return (
     metaData && (
       <Card className="w-[350px] border-none">
