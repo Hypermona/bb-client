@@ -24,14 +24,15 @@ export default function CookieBanner() {
   const [cookieConsent, setCookieConsent] = useState(getLocalStorage("cookie_consent", null));
 
   useEffect(() => {
-    const newValue = cookieConsent ? "granted" : "denied";
+    if (typeof window.gtag !== "undefined") {
+      const newValue = cookieConsent ? "granted" : "denied";
 
-    window.gtag("consent", "update", {
-      analytics_storage: newValue,
-    });
+      window.gtag("consent", "update", {
+        analytics_storage: newValue,
+      });
 
-    setLocalStorage("cookie_consent", cookieConsent);
-
+      setLocalStorage("cookie_consent", cookieConsent);
+    }
     //For Testing
     // console.log("Cookie Consent: ", cookieConsent);
   }, [cookieConsent]);
@@ -66,9 +67,6 @@ export default function CookieBanner() {
       </div>
 
       <div className="flex gap-2">
-        {/* <Button className="..." onClick={() => setCookieConsent(false)} variant={"ghost"}>
-          Decline
-        </Button> */}
         <Button className="..." onClick={() => setCookieConsent(true)}>
           Allow Cookies
         </Button>

@@ -4,8 +4,11 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Metadata } from "next/types";
-import CookieBanner from "@/components/cookiebanner";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
+
+const CookieBanner = dynamic(() => import("@/components/cookiebanner"), { ssr: false });
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +24,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <GoogleAnalytics GA_MEASUREMENT_ID="G-EFX0ZQ2BXE" />
+      <Suspense>
+        <GoogleAnalytics GA_MEASUREMENT_ID="G-EFX0ZQ2BXE" />
+      </Suspense>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <Header />

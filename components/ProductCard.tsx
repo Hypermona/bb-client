@@ -128,7 +128,12 @@ const ProductCard = ({ product, index }: Props) => {
             style={{ minHeight: expand ? 300 : 200, transition: "all .5s ease" }}
           >
             {product.standouts?.slice(0, expand ? undefined : 4)?.map((f, i: any) => (
-              <div key={f[0]} className="flex items-center jus sm:my-1 w-[200px] sm:w-[75%]">
+              <div
+                key={f[0]}
+                className={
+                  "flex items-center jus sm:my-1" + (expand ? "" : " w-[200px] sm:w-[55%]")
+                }
+              >
                 <span className="mr-2">{logos["FEAT"]}</span>
                 <p
                   className={
@@ -143,7 +148,12 @@ const ProductCard = ({ product, index }: Props) => {
               ?.filter((f) => f[1])
               ?.slice(0)
               ?.map((f, i: any) => (
-                <p key={f[0]} className="flex items-start sm:my-1 text-sm w-[200px] sm:w-[75%] ">
+                <p
+                  key={f[0]}
+                  className={
+                    "flex items-start sm:my-1 text-sm" + (expand ? "" : " w-[200px] sm:w-[55%]")
+                  }
+                >
                   <span className="mr-2 text-white">{logos[f[0]]}</span>
                   <span className={expand ? "" : "overflow-hidden whitespace-nowrap text-ellipsis"}>
                     {f[0] === "chip" ? (
@@ -162,7 +172,7 @@ const ProductCard = ({ product, index }: Props) => {
                 </p>
               ))}
             {product?.cons?.slice(0, expand ? undefined : 3)?.map((c, i) => (
-              <div key={c} className="flex items-start w-[200px] sm:w-[75%] ">
+              <div key={c} className={"flex items-start" + (expand ? "" : " w-[200px] sm:w-[55%]")}>
                 <ValueNoneIcon color="red" />
                 <span
                   className={
