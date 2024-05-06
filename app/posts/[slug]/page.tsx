@@ -57,7 +57,7 @@ export default async function Page({ params }: Readonly<{ params: { slug: string
           <div className="sm:w-[700px] mx-3 sm:mr-auto sm:ml-[12vw] my-5">
             <h1 className="PlaygroundEditorTheme__h1">{post?.title}</h1>
             <p className="text-lg text-muted-foreground mt-5">{post?.shortDescription}</p>
-            {post?.productCards.map((product: ProductFields, i: number) => (
+            {post?.productCards.map((product: resProductFields, i: number) => (
               <ProductCard product={product} index={i} key={product?.id} />
             ))}
           </div>
