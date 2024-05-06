@@ -1,5 +1,4 @@
 interface ProductFields {
-  id: string;
   title: string;
   image: string;
   price: string;
@@ -10,6 +9,7 @@ interface ProductFields {
   features: Object;
   cons: string[];
   Links: { link: string; brand: "AMAZON" | "FLIPKART" }[];
+  highlights: string[];
   shortDescription: string;
 }
 interface resProductFields extends ProductFields {

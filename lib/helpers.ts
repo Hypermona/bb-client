@@ -1,5 +1,5 @@
-import AmazonLogo from "../public/logos/amazon.png";
-import FlipkartLogo from "../public/logos/flipkart.png";
+import AmazonLogo from "../public/logos/amazon.svg";
+import FlipkartLogo from "../public/logos/flipkart.svg";
 
 export const PROCESSOR_LINK = `https://res.cloudinary.com/hypermona/raw/upload/v1710527909/${process.env.MAIN_FOLDER}/features/feature__processors.json`;
 
